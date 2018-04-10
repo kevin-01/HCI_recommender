@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HCI recommender</title>
+
+    <script src="https://d3js.org/d3.v3.js"></script>
+    <script src="https://d3js.org/d3.v4.0.0-alpha.40.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles/project.css">
+    <link rel="stylesheet" type="text/css" href="styles/index.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.7.0/introjs.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <script src="https://rawgit.com/chen0040/js-recommender/master/build/jsrecommender.min.js" type="application/javascript"></script>
+</head>
+<body onload = "startTimer()">
+<nav class="navbar navbar-default" data-step="1" data-intro="Welcome to the HCI visualizer!">
+    <div class="container-fluid"  style="padding:0">
+        <div class="navbar-header" style="margin:0">
+            <a class="navbar-brand" href="#"></a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/HCI/template/index.html">Visualisation</a></li>
+            <li><a href="/HCI/template/demo.html">Demo</a></li>
+            <li><a href="/HCI/template/data.html">Data</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="header"> <h1> Recommender System </h1> </div>
+
+<script type = "text/javascript" src="/HCI/template/scripts/index.js"></script>
+
+<div class="result">
+    <div id="matrix"></div>
+    <div id="recommender"></div>
+    <div id="bouton_recommender">
+        <form id="form_top" onSubmit="show_recommendation(); return false;">
+        User_ID: <input id="btn_field" type="text" list="db_user_id"/>
+            <datalist id="db_user_id"></datalist>
+            <input id="btn_recommend" type="button" value="Show Recommendation" onclick="show_recommendation()"/>
+         </form>
+    </div>
+</div>
+
+
+<div class="result2">
+    <img id="img" src="/HCI/template/data/mf1.jpg"/>
+    <button type="button" class="img_btn" onclick="displayPreviousImage()">Previous</button>
+    <button type="button" class="img_btn" onclick="displayNextImage()">Next</button>
+</div>
+
+<div id="wrapper">
+    <div id="first">
+        <form id="form_bottom_left" onSubmit="create_new_user(); return false;">
+            New_User: <input id="new_usr" type="text"/>
+            <input id="btn_add_usr" type="button" value="Add User" onclick="create_new_user()"/>
+        </form>
+    </div>
+    <div id="second">
+        <form id="form_bottom_right" onSubmit="create_new_rating(); return false;">
+        Choose Movie: <input id="add_movie" type="text" value="Character" list="db_movie_id"/>
+            <datalist id="db_movie_id"></datalist>
+            Rate the Movie: <input id="rate" type="text" value="0" list="db_rating"/>
+            <datalist id="db_rating"></datalist>
+            <input id="btn_recommend_new_user" type="button" value="Recommend" onclick="recommend()"/>
+            <input id="btn_add_rating" type="button" value="Add Rating" onclick="create_new_rating()"/>
+        </form>
+
+    </div>
+</div>
+
+<div class="end">
+</div>
+
+</body>
+</html>

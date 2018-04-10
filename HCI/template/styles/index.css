@@ -1,0 +1,188 @@
+.result {
+    text-align: center;
+    width: 100%;
+    height: 415px;
+    border: 1px solid black;
+    margin-bottom: 5px;
+
+}
+.result2 {
+    text-align: center;
+    overflow: auto;
+    width: 100%;
+    height: 415px;
+    border: 1px solid black;
+    margin-bottom: 5px;
+
+}
+.img_btn{
+    float: left;
+
+}
+#new_user {
+    width: 50%;
+    border: 1px solid black;
+    overflow: auto; /* will contain if #first is longer than #second */
+    margin-bottom: 5px;
+}
+
+#wrapper {
+    width: 100%;
+    border: 1px solid black;
+    overflow: auto; /* will contain if #first is longer than #second */
+}
+#first {
+    width: 40%;
+    float:left; /* add this */
+    border: 1px solid red;
+    text-align: center;
+}
+#second {
+    border: 1px solid green;
+    text-align: center;
+    overflow: auto; /* if you don't want #second to wrap below #first */
+}
+
+#matrix{
+    width: 50%;
+    height: 100%;
+    border: 2px solid red;
+    float:left;
+    overflow: auto;
+
+}
+#recommender{
+    height: 94%;
+    width: 50%;
+    border: 1px solid red;
+    overflow: auto;
+    background-color: black;
+    text-align: left;
+    color: white;
+}
+#bouton_recommender{
+    width: 50%;
+    border: 1px solid red;
+    float:right;
+
+}
+#btn_recommend{
+    margin: 1px;
+    color: dodgerblue;
+    float:right;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    display: inline-block;
+}
+#btn_recommend:hover {
+    background: #eee;
+}
+#form_top{
+    background-color: red;
+    text-align: left;
+}
+#form_bottom_left{
+    background-color: gray;
+    text-align: left;
+    padding-left: 5px;
+    padding-right: 1px;
+}
+#form_bottom_right{
+    background-color: lightslategray;
+    text-align: left;
+    padding-left: 5px;
+    padding-right: 1px;
+}
+
+#new_usr {
+    width: 110px;
+}
+
+#btn_add_usr{
+    width: 100px;
+    margin-right: 20px;
+    border: 1px solid red;
+    float:right;
+    margin: 1px;
+    color: black;
+    float:right;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    display: inline-block;
+}
+#btn_add_usr:hover {
+    background: #eee;
+}
+#add_movie {
+    width: 90px;
+}
+#rate {
+    width: 40px;
+}
+
+#btn_add_rating{
+    margin-right: 20px;
+    border: 1px solid red;
+    margin: 1px;
+    float:right;
+    color: darkcyan;
+    float:right;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    display: inline-block;
+}
+#btn_add_rating:hover {
+    background: #eee;
+}
+
+#btn_recommend_new_user{
+    margin-right: 20px;
+    border: 1px solid red;
+    margin: 1px;
+    float:right;
+    color: darkcyan;
+    float:right;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    display: inline-block;
+}
+#btn_recommend_new_user:hover {
+    background: #eee;
+}
+
+.end{
+    height: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+/* Zebra striping */
+tr:nth-of-type(odd) {
+    background: white;
+}
+th {
+    background: lightslategray;
+    color: white;
+    font-weight: bold;
+    background-repeat: no-repeat;
+    background-position: 3% center;
+}
+td, th {
+    padding: 6px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+th.des:after {
+    content: "\21E9";
+}
+
+th.aes:after {
+    content: "\21E7";
+}
