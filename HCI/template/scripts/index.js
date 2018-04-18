@@ -38,7 +38,7 @@ function show_recommendation() {
             var user = predicted_table.columnNames[i];
             if(user == variable.value) {
                 in_ = true
-                rec.innerHTML = 'For user: ' + user + "<br>";
+                rec.innerHTML = 'For user: ' + user + "<br> <br>";
                 for (var j = 0; j < predicted_table.rowNames.length; ++j) {
                     var movie = predicted_table.rowNames[j];
                     //console.log('Movie [' + movie + '] has actual rating of ' + Math.round(table.getCell(movie, user)));
@@ -66,14 +66,15 @@ function displayPreviousImage() {
 }
 
 function startTimer() {
-    setInterval(displayNextImage, 10000);
+    setInterval(displayNextImage, 40000);
 }
 
 var images = [], x = -1;
-images[0] = "/HCI/template/data/mf1.jpg";
-images[1] = "/HCI/template/data/mf2.png";
-
-
+images[0] = "/HCI/template/data/mf2.png";
+images[1] = "/HCI/template/data/mf1.png";
+images[2] = "/HCI/template/data/cat_matrix.gif";
+images[3] = "/HCI/template/data/computer_angry.gif";
+images[4] = "/HCI/template/data/Matrix_facto.png";
 
 
 
@@ -160,17 +161,29 @@ d3.csv("/HCI/template/data/out.csv", function(error, data) {
     var rows = table.append('tbody').selectAll('tr')
         .data(data).enter()
         .append('tr');
-    rows.selectAll('td')
+    var elem = rows.selectAll('td')
         .data(function (d) {
             return titles.map(function (k) {
                 return { 'value': d[k], 'name': k};
             });
         }).enter()
-        .append('td')
+
+    elem.append('td')
         .attr('data-th', function (d) {
             return d.name;
         })
         .text(function (d) {
             return d.value;
-        });
+        }).on("mouseover", handleMouseOver);
+
+    function handleMouseOver(d, i) {  // Add interactivity
+
+        coordinates = d3.mouse(d3.select('body').node());
+        //console.log(coordinates)
+
+        if(i != 0){
+            console.log("Movie Name: " + d.name);
+        }
+
+    }
 });
