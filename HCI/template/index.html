@@ -44,7 +44,7 @@
 </nav>
 
 <div class="header">
-    <a class="btn" href="javascript:void(0);" onclick="javascript:intro();">Tour this website</a>
+    <a class="btn" href="javascript:void(0);" onclick="javascript:intro();">Help</a>
     <h1> Recommender System </h1>
 </div>
 
@@ -55,7 +55,7 @@
     <div id="recommender" data-step="4" data-intro="In this section, we will have what the recommend advises us to watch. It will specify for a user a movie with its prediction in order to help the user to make appropriate choices."></div>
     <div id="bouton_recommender" data-step="5" data-intro="Here you can choose a user from the suggested list, and by clicking on the button, you will see the recommendation for some proposed movie.">
         <form id="form_top" onSubmit="show_recommendation(); return false;">
-        User_ID: <input id="btn_field" type="text" list="db_user_id"/>
+            User_ID: <input id="btn_field" type="text" list="db_user_id"/>
             <datalist id="db_user_id"></datalist>
             <input id="btn_recommend" type="button" value="Show Recommendation" onclick="show_recommendation()"/>
          </form>

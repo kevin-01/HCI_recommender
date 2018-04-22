@@ -7,7 +7,7 @@ d3.csv("/HCI/template/data/useful_data1.csv", function(error, data) {
 
 
     var i; // ok pour 200
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < 100; i++) {
         table.setCell(data[i].movie, data[i].user_id, data[i].rating);
     }
     console.log("OK")
@@ -32,25 +32,43 @@ function show_recommendation() {
     var variable = document.getElementById("btn_field");
     var rec =  document.getElementById("recommender");
     var in_ = false;
+    var result = {1: [],
+                    2: [],
+                    3: [],
+                    4: [],
+                    5: []};
 
     if(variable != "" || variable === undefined || variable === null) {
         for (var i = 0; i < predicted_table.columnNames.length; ++i) {
             var user = predicted_table.columnNames[i];
-            if(user == variable.value) {
+            if (user == variable.value) {
                 in_ = true
-                rec.innerHTML = 'For user: ' + user + "<br> <br>";
                 for (var j = 0; j < predicted_table.rowNames.length; ++j) {
                     var movie = predicted_table.rowNames[j];
-                    //console.log('Movie [' + movie + '] has actual rating of ' + Math.round(table.getCell(movie, user)));
-                    rec.innerHTML += 'Movie [' + movie + '] is predicted to have rating ' + Math.round(predicted_table.getCell(movie, user)) + "<br>";
+                    var prediction = Math.round(predicted_table.getCell(movie, user));
+                    result[prediction].push(movie);
                 }
             }
         }
-
     }
     if(!in_){
         rec.innerHTML = '';
         alert("Missing User_ID oder User_ID is Wrong");
+    }else{
+        rec.innerHTML = 'For user: ' + variable.value + "<br> <br>";
+        for (var i = 5; i > 0; --i){
+            var list_movie = result[i].sort()
+            if(list_movie.length > 0) {
+                for (var j = 0; j < list_movie.length; ++j){
+                    var movie = list_movie[j];
+                    if(j == 0){
+                        rec.innerHTML += '<span style="text-decoration:underline">Movie with prediction = ' + i + ":</span><br>";
+                    }
+                    rec.innerHTML += movie + "<br>";
+                }
+                rec.innerHTML += "<br>";
+            }
+        }
     }
 }
 
@@ -116,35 +134,63 @@ function create_new_rating(){
 }
 
 function create_options_user(){
+    /*
     var options = '';
     for(var i = 0; i < predicted_table.columnNames.length; i++){
         var user = predicted_table.columnNames[i];
-        options += '<option value="'+user+'" />';
+        options += '<option value="'+user+'" ></option>';
     }
     document.getElementById('db_user_id').innerHTML = options;
-
+    */
+    for (i = 0; i < predicted_table.columnNames.length; i++) {
+        var dl = document.getElementById("db_user_id");
+        var option = document.createElement('option');
+        var user = predicted_table.columnNames[i];
+        option.text = user;
+        option.value = user;
+        dl.appendChild(option);
+    }
 }
 function create_options_movie(){
+    /*
     var options = '';
     for(var i = 0; i < predicted_table.rowNames.length; i++){
         var movie = predicted_table.rowNames[i];
         options += '<option value="'+movie+'" />';
     }
     document.getElementById('db_movie_id').innerHTML = options;
+    */
+    for (i = 0; i < predicted_table.rowNames.length; i++) {
+        var dl = document.getElementById("db_movie_id");
+        var option = document.createElement('option');
+        var movie = predicted_table.rowNames[i];
+        option.text = movie;
+        option.value = movie;
+        dl.appendChild(option);
+    }
 
 }
 function create_options_rating(){
+    /*
     var options = '';
     for(var i = 0; i < 6; i++){
         options += '<option value="'+i+'" />';
     }
     document.getElementById('db_rating').innerHTML = options;
+    */
+    for (i = 0; i < 6; i++) {
+        var dl = document.getElementById("db_rating");
+        var option = document.createElement('option');
+        option.text = i;
+        option.value = i;
+        dl.appendChild(option);
+    }
 
 }
 
 
 
-d3.csv("/HCI/template/data/out.csv", function(error, data) {
+d3.csv("/HCI/template/data/user_movie_matrix.csv", function(error, data) {
     if (error) throw error;
 
     var sortAscending = true;
@@ -174,7 +220,8 @@ d3.csv("/HCI/template/data/out.csv", function(error, data) {
         })
         .text(function (d) {
             return d.value;
-        }).on("mouseover", handleMouseOver);
+        }).on("mouseover", handleMouseOver)
+        .on("mouseout", handleMouseOut);
 
     function handleMouseOver(d, i) {  // Add interactivity
 
@@ -182,7 +229,22 @@ d3.csv("/HCI/template/data/out.csv", function(error, data) {
         //console.log(coordinates)
 
         if(i != 0){
+            if(d.value == 0){
+                d3.select(this).style("background-color", "#990000").style("color", "white");
+            }else{
+                d3.select(this).style("background-color", "#33CC33").style("color", "white");
+            }
             console.log("Movie Name: " + d.name);
+        }
+
+    }
+    function handleMouseOut(d, i) {  // Add interactivity
+
+        coordinates = d3.mouse(d3.select('body').node());
+        //console.log(coordinates)
+
+        if(i != 0){
+            d3.select(this).style("background-color", "").style("color", "black");
         }
 
     }

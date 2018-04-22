@@ -1,6 +1,7 @@
 .btn {
-    width: 200px;
+    width: 70px;
     position: absolute;
+    right: 10px;
     margin: auto 0;
     background-color: #999999;
     color: white;
@@ -80,6 +81,7 @@
 
 }
 #btn_recommend{
+    height: 24px;
     margin: 1px;
     color: white;
     float:right;
@@ -117,8 +119,8 @@
 }
 
 #btn_add_usr{
+    height: 24px;
     width: 100px;
-    margin-right: 20px;
     float:right;
     margin: 1px;
     color: white;
@@ -139,8 +141,7 @@
 }
 
 #btn_add_rating{
-    margin-right: 20px;
-    border: 1px solid red;
+    height: 24px;
     margin: 1px;
     float:right;
     color: white;
@@ -155,8 +156,7 @@
 }
 
 #btn_recommend_new_user{
-    margin-right: 20px;
-    border: 1px solid red;
+    height: 24px;
     margin: 1px;
     float:right;
     color: white;
@@ -194,6 +194,15 @@ table {
     width: 100%;
     border-collapse: collapse;
 }
+#btn_field{
+    overflow-y:auto;
+    height: 26px;
+}
+datalist{
+    overflow-y:auto;
+}
+
+
 /* Zebra striping */
 tr:nth-of-type(odd) {
     background: white;
@@ -212,12 +221,6 @@ td, th {
 }
 th{
     text-align: left;
-}
-
-td:hover{
-    background-color: #e20c28 ;
-    color: white;
-
 }
 
 th.des:after {
