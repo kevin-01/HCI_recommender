@@ -8,7 +8,7 @@ d3.csv("/HCI/template/data/useful_data1.csv", function(error, data) {
 
 
     var i; // ok pour 200
-    for (i = 0; i < 300; i++) {
+    for (i = 0; i < 100; i++) {
         table.setCell(data[i].movie, data[i].user_id, data[i].rating);
     }
     console.log("OK")
@@ -24,6 +24,14 @@ function recommend(){
     predicted_table = recommender.transform(table);
     console.log(predicted_table);
 
+    //export_data(predicted_table);
+
+    create_options_user(predicted_table);
+    create_options_movie(predicted_table);
+    create_options_rating(predicted_table);
+}
+
+function export_data(predicted_table){
 
     var csvContent = "data:text/csv;charset=utf-8,";
     csvContent += "id,value" + "\r\n";
@@ -43,12 +51,8 @@ function recommend(){
     var encodedUri = encodeURI(csvContent);
     window.open(encodedUri);
 
-    console.log("Exported")
+    console.log("Exported");
 
-
-    create_options_user(predicted_table);
-    create_options_movie(predicted_table);
-    create_options_rating(predicted_table);
 }
 
 function show_recommendation() {
