@@ -51,15 +51,20 @@ function do_svg() {
             .attr("r", function(d) { return d.r; })
             .style("fill", function(d) {
 
-                var linearScale = d3.scaleLinear().domain([0,100]).range([75,255]);
-                var red_orange = d3.scaleLinear().domain([0, 100]).range(["#8d0a15", "#f46500"]);
-                var orange_yellow = d3.scaleLinear().domain([0, 100]).range(["#f46500", "#ffce00"]);
-                var yellow_blue = d3.scaleLinear().domain([0, 100]).range(["#ffce00", "#0093b7"]);
-                var blue_green = d3.scaleLinear().domain([0, 100]).range(["#0093b7", "#4d7701"]);
+                //var linearScale = d3.scaleLinear().domain([0,100]).range([75,255]);
+                var red = "#8d0a15";;
+                var orange = "#f46500";
+                var yellow = "#ffce00";
+                var blue = "#0093b7";
+                var green = "#4d7701";
+                var red_orange = d3.scaleLinear().domain([0, 100]).range([red, orange]);
+                var orange_yellow = d3.scaleLinear().domain([0, 100]).range([orange, yellow]);
+                var yellow_blue = d3.scaleLinear().domain([0, 100]).range([yellow, blue]);
+                var blue_green = d3.scaleLinear().domain([0, 100]).range([blue, green]);
                 var new_elem = 0;
                 if(d.value <= 200){
                     if(d.value < 100){
-                        return "#8d0a15";
+                        return red;
                     }else{
                         new_elem = d.value - 100;
                         return red_orange(new_elem)
@@ -74,10 +79,12 @@ function do_svg() {
                     return yellow_blue(new_elem)
                     //return "rgb("+linearScale(new_elem) + "," +linearScale(new_elem) +"," + linearScale(100-new_elem) + ")";
                 }else {
-                    new_elem = parseInt(d.value / 100) * 100;
-                    new_elem = d.value - new_elem;
-                    return blue_green(new_elem)
-                    //return "rgb("+linearScale(new_elem) + "," +linearScale(100-new_elem) +"," + linearScale(100-new_elem) + ")";
+                    if(d.value > 500){
+                        return green;
+                    }else{
+                        new_elem = d.value - 400;
+                        return blue_green(new_elem)
+                    }
                 }
 
             });
