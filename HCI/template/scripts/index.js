@@ -1,13 +1,14 @@
 var recommender = new jsrecommender.Recommender();
 var table = new jsrecommender.Table();
 var new_user = "";
+var predicted_table = "";
 
 d3.csv("/HCI/template/data/useful_data1.csv", function(error, data) {
     console.log(data[0]);
 
 
     var i; // ok pour 200
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i < 200; i++) {
         table.setCell(data[i].movie, data[i].user_id, data[i].rating);
     }
     console.log("OK")
@@ -23,9 +24,9 @@ function recommend(){
     predicted_table = recommender.transform(table);
     console.log(predicted_table);
 
-    create_options_user();
-    create_options_movie();
-    create_options_rating();
+    create_options_user(predicted_table);
+    create_options_movie(predicted_table);
+    create_options_rating(predicted_table);
 }
 
 function show_recommendation() {
@@ -38,7 +39,7 @@ function show_recommendation() {
                     4: [],
                     5: []};
 
-    if(variable != "" || variable === undefined || variable === null) {
+    if(variable != "" || variable != undefined || variable != null) {
         for (var i = 0; i < predicted_table.columnNames.length; ++i) {
             var user = predicted_table.columnNames[i];
             if (user == variable.value) {
@@ -46,7 +47,17 @@ function show_recommendation() {
                 for (var j = 0; j < predicted_table.rowNames.length; ++j) {
                     var movie = predicted_table.rowNames[j];
                     var prediction = Math.round(predicted_table.getCell(movie, user));
-                    result[prediction].push(movie);
+                    if(prediction < 1){
+                        prediction = 1;
+                    }else if(prediction > 5){
+                        prediction = 5;
+                    }
+
+                    if(prediction != undefined || prediction != null){
+                        console.log(prediction)
+                        console.log(movie)
+                        result[prediction].push(movie);
+                    }
                 }
             }
         }
@@ -110,7 +121,7 @@ function create_new_user(){
         new_user = variable;
         console.log(new_user);
     }
-    create_options_user();
+    create_options_user(predicted_table);
 }
 
 function create_new_rating(){
@@ -133,7 +144,7 @@ function create_new_rating(){
 
 }
 
-function create_options_user(){
+function create_options_user(predicted_table){
     /*
     var options = '';
     for(var i = 0; i < predicted_table.columnNames.length; i++){
@@ -146,12 +157,11 @@ function create_options_user(){
         var dl = document.getElementById("db_user_id");
         var option = document.createElement('option');
         var user = predicted_table.columnNames[i];
-        option.text = user;
         option.value = user;
         dl.appendChild(option);
     }
 }
-function create_options_movie(){
+function create_options_movie(predicted_table){
     /*
     var options = '';
     for(var i = 0; i < predicted_table.rowNames.length; i++){
@@ -164,13 +174,12 @@ function create_options_movie(){
         var dl = document.getElementById("db_movie_id");
         var option = document.createElement('option');
         var movie = predicted_table.rowNames[i];
-        option.text = movie;
         option.value = movie;
         dl.appendChild(option);
     }
 
 }
-function create_options_rating(){
+function create_options_rating(predicted_table){
     /*
     var options = '';
     for(var i = 0; i < 6; i++){
@@ -181,7 +190,6 @@ function create_options_rating(){
     for (i = 0; i < 6; i++) {
         var dl = document.getElementById("db_rating");
         var option = document.createElement('option');
-        option.text = i;
         option.value = i;
         dl.appendChild(option);
     }
