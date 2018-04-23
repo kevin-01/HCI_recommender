@@ -8,7 +8,7 @@ d3.csv("/HCI/template/data/useful_data1.csv", function(error, data) {
 
 
     var i; // ok pour 200
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i < 300; i++) {
         table.setCell(data[i].movie, data[i].user_id, data[i].rating);
     }
     console.log("OK")
@@ -24,13 +24,13 @@ function recommend(){
     predicted_table = recommender.transform(table);
     console.log(predicted_table);
 
-    /*
+
     var csvContent = "data:text/csv;charset=utf-8,";
     csvContent += "id,value" + "\r\n";
 
     for(var i = 0; i < predicted_table.rowNames.length; ++i){
         var movie = predicted_table.rowNames[i];
-        csvContent += + movie + "\r\n";
+        csvContent += movie + "\r\n";
         for(var j = 0; j < predicted_table.columnNames.length; ++j){
             var user = predicted_table.columnNames[j];
             var prediction = predicted_table.getCell(movie, user);
@@ -44,8 +44,8 @@ function recommend(){
     window.open(encodedUri);
 
     console.log("Exported")
-    */
-    
+
+
     create_options_user(predicted_table);
     create_options_movie(predicted_table);
     create_options_rating(predicted_table);
