@@ -24,14 +24,15 @@ function recommend(){
     predicted_table = recommender.transform(table);
     console.log(predicted_table);
 
-    //export_data(predicted_table);
+    //export_data_vis1(predicted_table);
+    //export_data_vis2(predicted_table);
 
     create_options_user(predicted_table);
     create_options_movie(predicted_table);
     create_options_rating(predicted_table);
 }
 
-function export_data(predicted_table){
+function export_data_vis1(predicted_table){
 
     var csvContent = "data:text/csv;charset=utf-8,";
     csvContent += "id,value" + "\r\n";
@@ -44,6 +45,30 @@ function export_data(predicted_table){
             var prediction = predicted_table.getCell(movie, user);
 
             csvContent += movie + "." + user + "." + movie + "," + prediction*100 + "\r\n";
+
+        }
+    }
+
+    var encodedUri = encodeURI(csvContent);
+    window.open(encodedUri);
+
+    console.log("Exported");
+
+}
+
+function export_data_vis2(predicted_table){ // a faire en json mais comment faire XD et après fini
+
+    var csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "id,value" + "\r\n";
+
+    for(var i = 0; i < predicted_table.columnNames.length; ++i){
+        var user = predicted_table.columnNames[i];
+        csvContent += user + "\r\n";
+        for(var j = 0; j < predicted_table.rowNames.length; ++j){
+            var movie = predicted_table.rowNames[j];
+            var prediction = predicted_table.getCell(movie, user);
+
+            csvContent += user + "." + movie + "," + prediction*100 + "\r\n";
 
         }
     }
