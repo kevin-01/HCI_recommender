@@ -49,7 +49,7 @@ function do_svg() {
             .style("fill", function(d) {
 
                 //var linearScale = d3.scaleLinear().domain([0,100]).range([75,255]);
-                var red = "#8d0a15";;
+                var red = "#8d0a15";
                 var orange = "#f46500";
                 var yellow = "#ffce00";
                 var blue = "#ADFF2F";
@@ -106,6 +106,8 @@ function do_svg() {
                 return "Movie: " + list_elem[0] + "\n" + "User: " + list_elem[1] + "\n" +"Value: " + format(d.value) / 100.0; });
 
     });
+
+    create_legend();
 }
 
 function choose_user(){
@@ -117,9 +119,27 @@ function choose_user(){
         svg.attr("class", "svg_first").attr("width", width).attr("height", height).attr("font-family", "sans-serif").attr("font-size", 10).attr("text-anchor","middle").attr("data-step","5").attr("data-intro","In this section, you will be able to see more precisely the results of the movies found for each user. The different colors tell you the different values ​​found and if you leave your cursor on a circle, you will have all the information about it.");
         user_research = usr;
         do_svg();
+
     }else{
         alert("No new User")
     }
+
+}
+function create_legend(){
+    d3.selectAll("#legend").remove();
+    var g_legend = d3.select("#svg_user").append("g").attr("id","legend");
+
+    g_legend.append("span").attr("style","text-decoration:underline").append("text").html("Color Legend: <br>");
+    g_legend.append("svg").attr("class","svg_legend").append("circle").attr("class","circle_legend").attr("fill","#8d0a15");
+    g_legend.append("g").html(" = The user will hate the movie (rating < 1.5) <br>");
+    g_legend.append("svg").attr("class","svg_legend").append("circle").attr("class","circle_legend").attr("fill","#f46500");
+    g_legend.append("g").html(" = The user won't like the movie (rating < 2.5) <br>");
+    g_legend.append("svg").attr("class","svg_legend").append("circle").attr("class","circle_legend").attr("fill","#ffce00");
+    g_legend.append("g").html(" = The user will like the movie (rating < 3.5) <br>");
+    g_legend.append("svg").attr("class","svg_legend").append("circle").attr("class","circle_legend").attr("fill","#ADFF2F");
+    g_legend.append("g").html(" = The user wil enjoy the movie (rating < 4.5) <br>");
+    g_legend.append("svg").attr("class","svg_legend").append("circle").attr("class","circle_legend").attr("fill","#4d7701");
+    g_legend.append("g").html(" = The user will absolutely love the movie (rating >= 5) <br>");
 
 }
 
@@ -201,7 +221,7 @@ d3.json("/HCI/template/data/result.json", function(error, root) {
             });
 
         transition.selectAll("text")
-            .filter(function(d) { return d.parent === focus || this.style.display === "inline"; })
+            .filter(function(d) { if(typeof d !== 'undefined'){ return d.parent === focus || this.style.display === "inline"; }})
             .style("fill-opacity", function(d) { return d.parent === focus ? 1 : 0; })
             .on("start", function(d) { if (d.parent === focus) this.style.display = "inline"; })
             .on("end", function(d) { if (d.parent !== focus) this.style.display = "none"; });
