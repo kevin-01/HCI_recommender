@@ -1,12 +1,16 @@
 .btn {
     width: 70px;
     position: absolute;
-    right: 10px;
+    left: 10px;
     margin: auto 0;
-    background-color: #999999;
+    background-color: #4CAF50;
     color: white;
     padding: 2px;
     margin: 5px;
+}
+
+.header{
+    margin-bottom: 40px;
 }
 
 .result {
@@ -146,13 +150,13 @@
     float:right;
     color: white;
     border: none;
-    background-color: #4CAF50;;
+    background-color: #0093b7;
     cursor: pointer;
     display: inline-block;
     border-radius: 8px;
 }
 #btn_add_rating:hover {
-    background-color: #2d6b22;
+    background: #066781;
 }
 
 #btn_recommend_new_user{

@@ -171,13 +171,17 @@ function create_new_user(){
     if(!user_exist && variable != "" && variable!=null){
         new_user = variable;
         console.log(new_user);
+        create_options_user(predicted_table);
+    }else{
+        alert("!!! User already exists")
     }
-    create_options_user(predicted_table);
 }
 
 function create_new_rating(){
     var movie = document.getElementById("add_movie").value;
     var rate = document.getElementById("rate").value;
+
+    create_new_user();
 
     if(movie != "" && movie!=null&& rate != "" && rate!=null && new_user != "" && new_user != null){
         if(rate < 0){

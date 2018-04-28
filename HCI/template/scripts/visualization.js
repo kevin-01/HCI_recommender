@@ -52,7 +52,7 @@ function do_svg() {
                 var red = "#8d0a15";;
                 var orange = "#f46500";
                 var yellow = "#ffce00";
-                var blue = "#0093b7";
+                var blue = "#ADFF2F";
                 var green = "#4d7701";
                 var red_orange = d3.scaleLinear().domain([0, 100]).range([red, orange]);
                 var orange_yellow = d3.scaleLinear().domain([0, 100]).range([orange, yellow]);
@@ -187,6 +187,10 @@ d3.json("/HCI/template/data/result.json", function(error, root) {
     zoomTo([root.x, root.y, root.r * 2 + margin]);
 
     function zoom(d) {
+        if(d.data.name != "users"){
+            document.getElementById("choose_usr").value = d.data.name;
+            choose_user();
+        }
         var focus0 = focus; focus = d;
 
         var transition = d3.transition()

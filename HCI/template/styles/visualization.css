@@ -7,9 +7,9 @@
 .btn {
     width: 70px;
     position: absolute;
-    right: 10px;
+    left: 10px;
     margin: auto 0;
-    background-color: #999999;
+    background-color: #00e600;
     color: white;
     padding: 2px;
     margin: 5px;
@@ -17,6 +17,7 @@
 
 #button_vis {
     position: relative;
+    width: 100%;
     float:left; /* add this */
     border: 1px solid black;
     text-align: center;
@@ -33,17 +34,17 @@
 #btn_choose_usr{
     height: 24px;
     width: 100px;
-    float:right;
     margin: 1px;
+    margin-left: 50px;
     color: white;
     border: none;
-    background-color: #0093b7;
+    background-color: #ff9200;
     cursor: pointer;
     display: inline-block;
     border-radius: 8px;
 }
 #btn_choose_usr:hover {
-    background: #066781;
+    background: #f46500;
 }
 
 .node{

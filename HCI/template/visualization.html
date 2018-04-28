@@ -38,7 +38,7 @@
         <ul class="nav navbar-nav" data-step="2" data-intro="Here you can navigate through the different pages.<br><br>In the &quotRecommender&quot section, you will find everything about the recommender system, how to see these data and how to have your own recommendations. You will also find an explanation on my matrix factorization and some fields to add you to the data. <br> <br>
             You are currently, in the &quotVisualization&quot section. You will be able to see the different results and also see for which person the recommender works best. <br> <br>
             In the &quotDemo&quot section, you will find a video on matrix factorization as well as a tutorial video for this site.<br> <br> Finally in the &quotData&quot section, you will be able to see all the movies that are taken in the database in order to make recommendations.">
-            <li><a href="/HCI/template/index.html">Recommender</a></li>
+            <li><a href="/HCI/template/index.html">Movie Recommender</a></li>
             <li><a href="/HCI/template/visualization.html">Visualization</a></li>
             <li><a href="/HCI/template/demo.html">Demo</a></li>
             <li><a href="/HCI/template/data.html">Data</a></li>
@@ -49,8 +49,8 @@
     <a class="btn" href="javascript:void(0);" onclick="javascript:intro();">Help</a>
 </div>
 
-<svg class="svg_second" width="1200" height="1200" text-anchor="middle" data-step="3" data-intro="In this section, you can see the results that the recommendation found. The recommender gives more or less good results depending on the users. In the center, we find the users for whom the recommentation is the most advisable (for some movies). In the edges, are the users for whom the proposed films are not recommended. Click on it to see the movies"></svg>
-<div id="button_vis" style="z-index: 2;" data-step="4" data-intro="Here you can select different users in order to better see their recommendation">
+<svg class="svg_second" width="1200" height="1200" text-anchor="middle" data-step="3" data-intro="In this section, you can see the results that the recommendation found. The recommender gives more or less good results depending on the users. In the center, we find the users for whom the recommentation is the most advisable (for some movies). In the edges, are the users for whom the proposed films are not recommended. Click on it to see the movies and it will also update the visualisation below."></svg>
+<div id="button_vis" style="z-index: 2;" data-step="4" data-intro="Here you can select different users in order to better see their recommendation too.">
     <form id="form_bottom" onSubmit="choose_user(); return false;">
         User: <input id="choose_usr" type="text" value="1488844" list="db_users"/>
         <datalist id="db_users"></datalist>
