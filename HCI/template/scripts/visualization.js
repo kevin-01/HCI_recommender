@@ -4,6 +4,7 @@ var svg = d3.select(".svg_first"),
     active = d3.select(null);
 
 var format = d3.format(",d");
+var avg = "";
 
 var color = d3.scaleOrdinal(d3.schemeCategory20c);
 
@@ -12,12 +13,33 @@ var pack1 = d3.pack()
     .padding(1.5);
 
 var user_research = "1666394";
+var dico_avg_movies = {};
+var dico_circle_movies = {};
+var prev_movie = "";
+var note_movie = 0;
+var count = 0;
+var add_movie = 0;
 
 function do_svg() {
 
     d3.csv("/HCI/template/data/data_vis.csv", function(d) {
         var user = d.id.split(".")[1];
+        var movie = d.id.split(".")[0];
         d.value = +d.value;
+
+        if(!d.value){
+            prev_movie = movie;
+            if(add_movie > 3){
+                dico_avg_movies[movie] = note_movie / count;
+                count = 0;
+                note_movie = 0;
+            }
+        }else{
+            count = count + 1;
+            note_movie = note_movie + d.value;
+        }
+        add_movie = add_movie + 1;
+
         create_list_user(user);
         if (d.value && user == user_research){
             return d;
@@ -84,6 +106,33 @@ function do_svg() {
                     }
                 }
 
+            })
+            .on("click", function(d) {
+                avg = d3.select(".avg");
+                var movie_name = d.class;
+                var movie_value = d.value / 100.0;
+                var movie_avg = dico_avg_movies[movie_name] / 100.0;
+                var movie_name_splitted = movie_name.split(" ");
+                if(movie_name_splitted.length > 3){
+                    movie_name = movie_name_splitted[0]+" " + movie_name_splitted[1]+" " + movie_name_splitted[2];
+                }
+
+                if(movie_name in dico_circle_movies){
+                    dico_circle_movies
+                    delete dico_circle_movies[movie_name];
+                    d3.selectAll(".movie_avg").remove();
+
+                    var keys = Object.keys(dico_circle_movies);
+                    for (var i = 0; i < keys.length; i++) {
+                        avg.append("g").attr("class", "movie_avg").attr("style","font: 11px arial, sans-serif").html(keys[i]  + " {Note: " + dico_circle_movies[keys[i]][0].toFixed(2) + " AVG: " +  dico_circle_movies[keys[i]][1].toFixed(2) + "}<br>");
+                    }
+                }else{
+                    dico_circle_movies[movie_name] = [];
+                    dico_circle_movies[movie_name].push(movie_value);
+                    dico_circle_movies[movie_name].push(movie_avg);
+
+                    avg.append("g").attr("class", "movie_avg").attr("style","font: 11px arial, sans-serif").html(movie_name  + " {Note: " + movie_value.toFixed(2) + ", AVG: " + movie_avg.toFixed(2) + "}<br>");
+                }
             });
 
         node.append("clipPath")
@@ -107,7 +156,7 @@ function do_svg() {
 
     });
 
-    create_legend();
+    d3.selectAll(".movie_avg").remove();
 }
 
 function choose_user(){
@@ -125,9 +174,10 @@ function choose_user(){
     }
 
 }
+
+create_legend()
 function create_legend(){
-    d3.selectAll("#legend").remove();
-    var g_legend = d3.select("#svg_user").append("g").attr("id","legend");
+    var g_legend = d3.selectAll("#legend");
 
     g_legend.append("span").attr("style","text-decoration:underline").append("text").html("Color Legend: <br>");
     g_legend.append("svg").attr("class","svg_legend").append("circle").attr("class","circle_legend").attr("fill","#8d0a15");

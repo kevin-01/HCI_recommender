@@ -14,6 +14,11 @@
     padding: 2px;
     margin: 5px;
 }
+#legend{
+    position: absolute;
+    left: 900px;
+    top: 1310px;
+}
 .svg_legend{
     width: 10px;
     height: 10px;
@@ -22,6 +27,11 @@
     cx:5px;
     cy:5px;
     r:5px
+}
+.avg{
+    position: absolute;
+    left: 10px;
+    top: 1310px;
 }
 
 #legend{
